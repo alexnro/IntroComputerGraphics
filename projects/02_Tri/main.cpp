@@ -1,7 +1,7 @@
 #include <engine/window.hpp>
 
 int main(int, char* []) {
-	Window* window = new Window();
+	Window* window = Window::instance();
 
 	while (window->isAlive()) {
 		window->handleFrame();

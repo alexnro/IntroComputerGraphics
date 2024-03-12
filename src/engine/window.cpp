@@ -5,8 +5,6 @@
 #include <GLFW/glfw3.h>
 #include <engine/input.hpp>
 
-GLFWwindow* Window::_window = nullptr;
-
 void onChangeFrameBufferSize(GLFWwindow* window, const int32_t width, const int32_t height) {
 	glViewport(0, 0, width, height);
 	std::cout << width << " " << height << std::endl;
@@ -52,13 +50,13 @@ Window* Window::instance() {
 	return &w;
 }
 
-bool Window::isAlive() {
+bool Window::isAlive() const {
 	return !glfwWindowShouldClose(getNativeWindow());
 }
 
-void Window::handleFrame() {
+void Window::handleFrame() const {
 	glfwSwapBuffers(getNativeWindow());
 	glfwPollEvents();
 	glClear(GL_COLOR_BUFFER_BIT);
-	Input::handleInput();
+	Input::handleInput(this);
 }

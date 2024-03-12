@@ -5,9 +5,9 @@
 
 class Input {
 public:
-	static void handleInput() {
-		if (glfwGetKey(Window::getNativeWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-			glfwSetWindowShouldClose(Window::getNativeWindow(), true);
+	static void handleInput(const Window* window) {
+		if (glfwGetKey(window->getNativeWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+			glfwSetWindowShouldClose(window->getNativeWindow(), true);
 		}
 	}
 };
