@@ -3,6 +3,7 @@
 #include <engine/window.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <engine/input.hpp>
 
 GLFWwindow* Window::_window = nullptr;
 
@@ -59,4 +60,5 @@ void Window::handleFrame() {
 	glfwSwapBuffers(getNativeWindow());
 	glfwPollEvents();
 	glClear(GL_COLOR_BUFFER_BIT);
+	Input::handleInput();
 }
