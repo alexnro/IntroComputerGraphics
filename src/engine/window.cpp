@@ -10,6 +10,12 @@ void onChangeFrameBufferSize(GLFWwindow* window, const int32_t width, const int3
 	std::cout << width << " " << height << std::endl;
 }
 
+void onKeyPressed(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/) {
+	if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE) {
+		glfwSetWindowShouldClose(window, true);
+	}
+}
+
 Window::Window() {
 	if (!glfwInit()) {
 		std::cout << "Error Initializing GLFW" << std::endl;
@@ -20,7 +26,7 @@ Window::Window() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	_window = glfwCreateWindow(800, 600, "60GIIN", nullptr, nullptr);
+	_window = glfwCreateWindow(static_cast<int>(_width), static_cast<int>(_height), "60GIIN", nullptr, nullptr);
 	if (!_window) {
 		std::cout << "Error Creating Window" << std::endl;
 		glfwTerminate();
@@ -36,6 +42,7 @@ Window::Window() {
 	}
 
 	glfwSetFramebufferSizeCallback(_window, onChangeFrameBufferSize);
+	glfwSetKeyCallback(_window, onKeyPressed);
 
 	glClearColor(0.0f, 0.3f, 0.6f, 1.0f);
 }

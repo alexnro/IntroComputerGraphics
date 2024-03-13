@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 class GLFWwindow;
 
 class Window {
@@ -17,6 +19,6 @@ private:
 	Window();
 	~Window();
 	GLFWwindow* _window;
-	/*int _width = 800;
-	int _height = 600;*/
+	uint32_t _width = 800;
+	uint32_t _height = 600;
 };

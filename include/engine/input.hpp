@@ -5,6 +5,11 @@
 
 class Input {
 public:
+	/*static Input* instance() {
+		static Input i;
+		return &i;
+	}*/
+
 	static void handleInput(const Window* window) {
 		if (glfwGetKey(window->getNativeWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			glfwSetWindowShouldClose(window->getNativeWindow(), true);
