@@ -64,6 +64,5 @@ bool Window::isAlive() const {
 void Window::handleFrame() const {
 	glfwSwapBuffers(getNativeWindow());
 	glfwPollEvents();
-	glClear(GL_COLOR_BUFFER_BIT);
 	Input::handleInput(this);
 }

@@ -15,6 +15,13 @@ public:
 	[[nodiscard]] bool isAlive() const;
 	void handleFrame() const;
 
+
+	void setWidth(uint32_t width) { _width = width; }
+	void setHeight(uint32_t height) { _height = height; }
+
+	[[nodiscard]] uint32_t getWidth() const { return _width; }
+	[[nodiscard]] uint32_t getHeight() const { return _height; }
+
 private:
 	Window();
 	~Window();
