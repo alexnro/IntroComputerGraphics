@@ -22,9 +22,18 @@ public:
 	[[nodiscard]] uint32_t getWidth() const { return _width; }
 	[[nodiscard]] uint32_t getHeight() const { return _height; }
 
+	static bool isKeyPressed(int key);
+
+	void setCaptureMouse(bool toggle) const;
+
 private:
 	Window();
 	~Window();
+	Window(const Window&) = default;
+	Window(Window&&) = default;
+	Window& operator=(const Window&) = default;
+	Window& operator=(Window&&) = default;
+
 	GLFWwindow* _window;
 	uint32_t _width = 800;
 	uint32_t _height = 600;
