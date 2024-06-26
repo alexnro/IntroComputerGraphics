@@ -5,4 +5,5 @@ set(PROJECT_LIST
     03_Shaders
     04_Texture
     05_3D
-    06_Camera)
+    06_Camera
+    07_Camera_Class)
