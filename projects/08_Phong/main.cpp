@@ -21,7 +21,6 @@
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 glm::vec3 lightPos(3.0f, 1.0f, 0.0f);
-glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
 
 std::vector<glm::vec3> cubePositions{
@@ -56,6 +55,8 @@ void handleInput(float delta) {
 void render(const Geometry& geometry, const Shader& light_shader, const Shader& phong_shader) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glm::vec3 lightColor(sin(glfwGetTime() * 2.0f), sin(glfwGetTime() * 0.5f), sin(glfwGetTime() * 1.6f));
+
 	light_shader.use();
 
 	Window* window = Window::instance();
@@ -82,14 +83,17 @@ void render(const Geometry& geometry, const Shader& light_shader, const Shader& 
 	const glm::mat3 normalMat = glm::inverse(glm::transpose(glm::mat3(model)));
 	phong_shader.set("normalMat", normalMat);
 
-	phong_shader.set("lightColor", lightColor);
-	phong_shader.set("objectColor", objectColor);
-	phong_shader.set("lightPos", lightPos);
-	phong_shader.set("viewPos", camera.getPosition());
+	phong_shader.set("material.ambient", 0.7f, 0.5f, 0.3f);
+	phong_shader.set("material.diffuse", 0.7f, 0.5f, 0.3f);
+	phong_shader.set("material.specular", 0.5f, 0.5f, 0.5f);
+	phong_shader.set("material.shininess", 64);
 
-	phong_shader.set("ambientStrength", 0.1f);
-	phong_shader.set("specularStrength", 0.8f);
-	phong_shader.set("shininess", 64);
+	phong_shader.set("light.position", lightPos);
+	phong_shader.set("light.ambient", lightColor * glm::vec3(0.2f));
+	phong_shader.set("light.diffuse", lightColor * glm::vec3(0.5f));
+	phong_shader.set("light.specular", glm::vec3(1.0f));
+
+	phong_shader.set("viewPos", camera.getPosition());
 
 	geometry.render();
 }
