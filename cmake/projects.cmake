@@ -9,4 +9,5 @@ set(PROJECT_LIST
     07_Camera_Class
     08_Phong
     09_Lightmaps
-    10_LightEmitter_Directional)
+    10_LightEmitter_Directional
+    11_LightEmitter_Point)
