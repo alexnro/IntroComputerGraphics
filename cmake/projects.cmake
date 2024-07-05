@@ -7,4 +7,5 @@ set(PROJECT_LIST
     05_3D
     06_Camera
     07_Camera_Class
-    08_Phong)
+    08_Phong
+    09_Lightmaps)
