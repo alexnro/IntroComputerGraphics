@@ -12,4 +12,5 @@ set(PROJECT_LIST
     10_LightEmitter_Directional
     11_LightEmitter_Point
     12_LightEmitter_Spot
-    13_LightEmitter_All)
+    13_LightEmitter_All
+    14_LoadModels)

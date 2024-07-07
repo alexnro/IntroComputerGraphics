@@ -9,7 +9,9 @@ set(ENGINE_SRC_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/geometry/sphere.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/geometry/teapot.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/texture.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/camera.cpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/camera.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/mesh.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/model.cpp)
 
 set(ENGINE_HEADER_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/placeholder.hpp
@@ -23,4 +25,6 @@ set(ENGINE_HEADER_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/geometry/teapot.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/geometry/teapotdata.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/texture.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/camera.hpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/camera.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/mesh.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/model.hpp)
