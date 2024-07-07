@@ -56,8 +56,8 @@ void Camera::handleMouseMovement(float xoffset, float yoffset, bool constrainPit
 	float xoff = xoffset * k_Sensitivity;  // calc offset movement since last frame
 	float yoff = yoffset * k_Sensitivity;  // reversed since y-coordinates go from bottom to top
 
-	yaw_ += xoffset;   // add offsets to pitch/yaw
-	pitch_ += yoffset;
+	yaw_ += xoff;   // add offsets to pitch/yaw
+	pitch_ += yoff;
 
 	if (constrainPitch) {
 		// make sure that when pitch is out of bounds, screen doesn't get flipped
