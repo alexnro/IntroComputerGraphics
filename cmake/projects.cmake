@@ -13,4 +13,5 @@ set(PROJECT_LIST
     11_LightEmitter_Point
     12_LightEmitter_Spot
     13_LightEmitter_All
-    14_LoadModels)
+    14_LoadModels
+    15_Stencil)
