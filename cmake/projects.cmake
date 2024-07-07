@@ -10,4 +10,5 @@ set(PROJECT_LIST
     08_Phong
     09_Lightmaps
     10_LightEmitter_Directional
-    11_LightEmitter_Point)
+    11_LightEmitter_Point
+    12_LightEmitter_Spot)
