@@ -17,4 +17,5 @@ set(PROJECT_LIST
     15_Stencil
     16_Blending
     17_NormalMapping
-    18_FBO)
+    18_FBO
+    19_ShadowMaps)
