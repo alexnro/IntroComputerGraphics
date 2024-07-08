@@ -15,4 +15,5 @@ set(PROJECT_LIST
     13_LightEmitter_All
     14_LoadModels
     15_Stencil
-    16_Blending)
+    16_Blending
+    17_NormalMapping)
