@@ -77,8 +77,6 @@ void render(const Geometry& quad, const Shader& normal_shader, const Shader& pho
     float l_pos[] = { std::sin((float)glfwGetTime() / 2.0f), 0.0f, std::abs(std::cos((float)glfwGetTime() / 2.0f)) };
     glm::vec3 lightPos = glm::vec3(l_pos[0], l_pos[1], l_pos[2]);
 
-    //lightPos = glm::vec3(0.0f, 1.0f, 2.0f);
-
     {
         phong_shader.use();
         phong_shader.set("view", view);
@@ -94,13 +92,12 @@ void render(const Geometry& quad, const Shader& normal_shader, const Shader& pho
         phong_shader.set("viewPos", camera.getPosition());
         t_albedo.use(phong_shader, "material.diffuse", 0);
         t_specular.use(phong_shader, "material.specular", 1);
-        t_normal.use(phong_shader, "material.normal", 2);
         phong_shader.set("material.shininess", 16);
 
         phong_shader.set("light.position", lightPos);
-        phong_shader.set("light.ambient", lightDirColor * glm::vec3(0.02f));
-        phong_shader.set("light.diffuse", lightDirColor * glm::vec3(0.1f));
-        phong_shader.set("light.specular", lightDirColor * glm::vec3(0.3f));
+        phong_shader.set("light.ambient", lightDirColor * glm::vec3(0.1f));
+        phong_shader.set("light.diffuse", lightDirColor * glm::vec3(0.5f));
+        phong_shader.set("light.specular", lightDirColor * glm::vec3(1.0f));
 
         quad.render();
     }
@@ -124,9 +121,9 @@ void render(const Geometry& quad, const Shader& normal_shader, const Shader& pho
         normal_shader.set("material.shininess", 16);
 
         normal_shader.set("light.position", lightPos);
-        normal_shader.set("light.ambient", lightDirColor * glm::vec3(0.02f));
-        normal_shader.set("light.diffuse", lightDirColor * glm::vec3(0.1f));
-        normal_shader.set("light.specular", lightDirColor * glm::vec3(0.3f));
+        normal_shader.set("light.ambient", lightDirColor * glm::vec3(0.1f));
+        normal_shader.set("light.diffuse", lightDirColor * glm::vec3(0.5f));
+        normal_shader.set("light.specular", lightDirColor * glm::vec3(1.0f));
 
         quad.render();
     }

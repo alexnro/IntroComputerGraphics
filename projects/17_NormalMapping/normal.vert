@@ -30,8 +30,8 @@ void main() {
     uv = aUV;
     vec3 fragPos = vec3(model * vec4(aPos, 1.0));
 
-    vec3 T = normalize(normalMat * aNormal);
-    vec3 N = normalize(normalMat * aTangent);
+    vec3 T = normalize(normalMat * aTangent);
+    vec3 N = normalize(normalMat * aNormal);
     T = normalize(T - dot(T, N) * N);
     vec3 B = cross(N, T);
 
