@@ -39,12 +39,29 @@ vec3 calcDirectionalLight(DirLight light, vec3 normal, vec3 viewDir, vec3 albedo
     return ambient + ((1.0 - shadow) * (diffuse + specular));
 }
 
-float ShadowCalculation(vec4 fragPosLightSpace) {
+float ShadowCalculation(vec4 fragPosLightSpace, float bias) {
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
     float closestDepth = texture(depth_map, projCoords.xy).r;
     float currentDepth = projCoords.z;
-    float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
+    
+    //float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
+    //float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+
+    float shadow = 0.0;
+    vec2 texelSize = 1.0 / textureSize(depth_map, 0);
+    for(int x = -1; x <= 1; ++x) {
+        for(int y = -1; y <= 1; ++y) {
+            float pcfDepth = texture(depth_map, projCoords.xy + vec2(x, y) * texelSize).r;
+            shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
+        }
+    }
+    shadow /= 9.0;
+
+    if (projCoords.z > 1.0) {
+        shadow = 0.0;
+    }
+
     return shadow;
 }
 
@@ -54,8 +71,10 @@ void main() {
 
     vec3 norm = normalize(normal); 
     vec3 viewDir = normalize(viewPos - fragPos);
+    vec3 lightDir = normalize(dirLight.position - fragPos);
 
-    float shadow = ShadowCalculation(fragPosLightSpace);
+    float bias = max(0.05 * (1.0 - dot(norm, lightDir)), 0.005);
+    float shadow = ShadowCalculation(fragPosLightSpace, bias);
     vec3 finalColor = calcDirectionalLight(dirLight, norm, viewDir, albedoMap, specularMap, shadow);
 
     FragColor = vec4(finalColor, 1.0);

@@ -84,9 +84,10 @@ std::pair<uint32_t, uint32_t> createFBO() {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, k_shadow_width, k_shadow_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
     glBindTexture(GL_TEXTURE_2D, 0);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
     glDrawBuffer(GL_NONE);
@@ -115,6 +116,7 @@ void renderScene(const Shader& shader, const Geometry& quad, const Geometry& cub
     quad.render();
 
     model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
     shader.set("model", model);
     normalMat = glm::transpose(glm::inverse(glm::mat3(model)));
     shader.set("normalMat", normalMat);
@@ -153,6 +155,7 @@ void render(const Geometry& quad, const Geometry& cube, const Geometry& sphere, 
     glViewport(0, 0, k_shadow_width, k_shadow_height);
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
+    glCullFace(GL_BACK);
 
     glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, k_shadow_near, k_shadow_far);
     glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -163,10 +166,25 @@ void render(const Geometry& quad, const Geometry& cube, const Geometry& sphere, 
 
     renderScene(depth_shader, quad, cube, sphere, t_albedo, t_specular);
 
+    ////DEBUG PASS
+    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    //glViewport(0, 0, (float)window->getWidth(), (float)window->getHeight());
+    //glClear(GL_COLOR_BUFFER_BIT);
+    //glDisable(GL_DEPTH_TEST);
+    //glCullFace(GL_BACK);
+
+    //debug_shader.use();
+    //glActiveTexture(GL_TEXTURE0);
+    //glBindTexture(GL_TEXTURE_2D, text_fbo);
+    //debug_shader.set("depth_map", 0);
+
+    //quad.render();
+
     //SECOND PASS
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, (float)window->getWidth(), (float)window->getHeight());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glCullFace(GL_BACK);
 
     const glm::mat4 proj = glm::perspective(glm::radians(camera.getFOV()), (float)window->getWidth() / (float)window->getHeight(), 0.1f, 100.0f);
     const glm::mat4 view = camera.getViewMatrix();
@@ -190,9 +208,6 @@ void render(const Geometry& quad, const Geometry& cube, const Geometry& sphere, 
     phong_shader.set("depth_map", 2);
 
     renderScene(phong_shader, quad, cube, sphere, t_albedo, t_specular);
-
-    //LIGHT PASS
-    //light_shader.use();
 }
 
 int main(int, char* []) {
