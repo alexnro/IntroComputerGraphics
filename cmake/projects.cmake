@@ -18,4 +18,8 @@ set(PROJECT_LIST
     16_Blending
     17_NormalMapping
     18_FBO
-    19_ShadowMaps)
+    19_ShadowMaps
+    Act01_PhongInView
+    Act02_CustomLookAt
+    Act03_Flashlight
+    Act04_LoadModel)
