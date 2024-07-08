@@ -16,4 +16,5 @@ set(PROJECT_LIST
     14_LoadModels
     15_Stencil
     16_Blending
-    17_NormalMapping)
+    17_NormalMapping
+    18_FBO)
